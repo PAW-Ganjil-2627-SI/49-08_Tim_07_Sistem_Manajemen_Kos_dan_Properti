@@ -10,8 +10,8 @@
         <p style="color: var(--text-muted); font-size: 0.9rem;">Sistem Pengelolaan Properti Kos Terpadu.</p>
     </div>
     <div class="user-profile">
-        <div class="user-avatar">A</div>
-        <span style="font-size: 0.875rem; font-weight: 600;">Admin / Leel</span>
+    <div class="user-avatar">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
+    <span style="font-size: 0.875rem; font-weight: 600;">{{ Auth::user()->name }}</span>
     </div>
 </div>
 

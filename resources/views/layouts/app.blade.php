@@ -17,6 +17,14 @@
             <li><a href="{{ route('penghuni.index') }}" class="{{ request()->routeIs('penghuni.*') ? 'active' : '' }}">👥 Modul Penghuni</a></li>
             <li><a href="{{ route('housekeeper.index') }}" class="{{ request()->routeIs('housekeeper.*') ? 'active' : '' }}">🧹 Modul Housekeeper</a></li>
             <li><a href="{{ route('inventaris.index') }}" class="{{ request()->routeIs('inventaris.*') ? 'active' : '' }}">📦 Modul Inventaris</a></li>
+        <li style="margin-top: 20px;">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" style="width: 100%; padding: 10px 15px; background: #dc2626; color: white; border: none; border-radius: 6px; cursor: pointer; text-align: left; font-weight: 600;">
+                        🚪 Logout
+                    </button>
+                </form>
+            </li>
         </ul>
     </div>
 
