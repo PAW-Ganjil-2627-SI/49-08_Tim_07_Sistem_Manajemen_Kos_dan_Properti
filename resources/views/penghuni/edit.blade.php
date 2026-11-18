@@ -7,6 +7,16 @@
     <h1>Edit Data Penghuni</h1>
 </div>
 
+@if ($errors->any())
+    <div style="padding: 12px 16px; background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; border-radius: 6px; margin-bottom: 20px;">
+        <ul style="margin: 0; padding-left: 20px;">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="card">
     <form action="{{ route('penghuni.update', $penghuni->id_penghuni) }}" method="POST">
         @csrf
@@ -14,19 +24,19 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
             <div>
                 <label>Nama Lengkap</label>
-                <input type="text" name="nama_lengkap" value="{{ $penghuni->nama_lengkap }}" required style="width: 100%; padding: 8px;">
+                <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap', $penghuni->nama_lengkap) }}" required style="width: 100%; padding: 8px;">
             </div>
             <div>
                 <label>No. KTP</label>
-                <input type="text" name="no_ktp" value="{{ $penghuni->no_ktp }}" required style="width: 100%; padding: 8px;">
+                <input type="text" name="no_ktp" value="{{ old('no_ktp', $penghuni->no_ktp) }}" required style="width: 100%; padding: 8px;">
             </div>
             <div>
-                <label>Pekerjaan</label>
-                <input type="text" name="pekerjaan" value="{{ $penghuni->pekerjaan }}" required style="width: 100%; padding: 8px;">
+                <label>No. HP</label>
+                <input type="text" name="no_hp" value="{{ old('no_hp', $penghuni->no_hp) }}" required style="width: 100%; padding: 8px;">
             </div>
             <div>
-                <label>Kontak Darurat</label>
-                <input type="text" name="kontak_darurat" value="{{ $penghuni->kontak_darurat }}" required style="width: 100%; padding: 8px;">
+                <label>Asal Kota</label>
+                <input type="text" name="asal_kota" value="{{ old('asal_kota', $penghuni->asal_kota) }}" required style="width: 100%; padding: 8px;">
             </div>
         </div>
         <div style="margin-top: 20px; display: flex; gap: 10px;">

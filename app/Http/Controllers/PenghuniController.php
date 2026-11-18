@@ -16,40 +16,45 @@ class PenghuniController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama_lengkap'   => 'required',
-            'no_ktp'         => 'required',
-            'pekerjaan'      => 'required',
-            'kontak_darurat' => 'required',
+            'nama_lengkap' => 'required|string|max:100',
+            'no_ktp'       => 'required|string|max:20|unique:penghuni,no_ktp',
+            'no_hp'        => 'required|string|max:20',
+            'asal_kota'    => 'required|string|max:100',
         ]);
 
         Penghuni::create($validated);
-        return redirect()->route('penghuni.index');
+
+        return redirect()->route('penghuni.index')
+                         ->with('success', 'Data Penghuni Berhasil Ditambahkan');
+    }
+
+    public function edit($id)
+    {
+        $penghuni = Penghuni::findOrFail($id);
+        return view('penghuni.edit', compact('penghuni'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'nama_lengkap' => 'required|string|max:100',
+            'no_ktp'       => 'required|string|max:20|unique:penghuni,no_ktp,' . $id . ',id_penghuni',
+            'no_hp'        => 'required|string|max:20',
+            'asal_kota'    => 'required|string|max:100',
+        ]);
+
+        $penghuni = Penghuni::findOrFail($id);
+        $penghuni->update($validated);
+
+        return redirect()->route('penghuni.index')
+                         ->with('success', 'Data Penghuni Berhasil Diperbarui');
     }
 
     public function destroy($id)
     {
         Penghuni::destroy($id);
-        return redirect()->route('penghuni.index');
+
+        return redirect()->route('penghuni.index')
+                         ->with('success', 'Data Penghuni Berhasil Dihapus');
     }
-
-    public function edit($id)
-{
-    $penghuni = Penghuni::findOrFail($id);
-    return view('penghuni.edit', compact('penghuni'));
-}
-
-public function update(Request $request, $id)
-{
-    $validated = $request->validate([
-        'nama_lengkap'   => 'required',
-        'no_ktp'         => 'required',
-        'pekerjaan'      => 'required',
-        'kontak_darurat' => 'required',
-    ]);
-
-    $penghuni = Penghuni::findOrFail($id);
-    $penghuni->update($validated);
-
-    return redirect()->route('penghuni.index')->with('success', 'Data Penghuni Berhasil Diperbarui');
-}
 }
