@@ -7,6 +7,22 @@
     <h1>Modul Pengelolaan Kamar</h1>
 </div>
 
+@if (session('success'))
+    <div style="padding: 12px 16px; background-color: #dcfce7; color: #166534; border: 1px solid #86efac; border-radius: 6px; margin-bottom: 20px;">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if ($errors->any())
+    <div style="padding: 12px 16px; background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; border-radius: 6px; margin-bottom: 20px;">
+        <ul style="margin: 0; padding-left: 20px;">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="card" style="margin-bottom: 20px;">
     <h2>Tambah Data Kamar</h2>
     <form action="{{ route('kamar.store') }}" method="POST">
@@ -14,22 +30,22 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
             <div>
                 <label>Nomor Kamar</label>
-                <input type="text" name="nomor_kamar" required style="width: 100%; padding: 8px;">
+                <input type="text" name="nomor_kamar" value="{{ old('nomor_kamar') }}" required style="width: 100%; padding: 8px;">
             </div>
             <div>
                 <label>Tipe Kamar</label>
-                <input type="text" name="tipe" required style="width: 100%; padding: 8px;">
+                <input type="text" name="tipe" value="{{ old('tipe') }}" required style="width: 100%; padding: 8px;">
             </div>
             <div>
                 <label>Harga (Rp)</label>
-                <input type="number" name="harga" required style="width: 100%; padding: 8px;">
+                <input type="number" name="harga" value="{{ old('harga') }}" required style="width: 100%; padding: 8px;">
             </div>
             <div>
                 <label>Status</label>
                 <select name="status" style="width: 100%; padding: 8px;">
-                    <option value="Tersedia">Tersedia</option>
-                    <option value="Terisi">Terisi</option>
-                    <option value="Perbaikan">Perbaikan</option>
+                    <option value="Tersedia" {{ old('status') == 'Tersedia' ? 'selected' : '' }}>Tersedia</option>
+                    <option value="Terisi" {{ old('status') == 'Terisi' ? 'selected' : '' }}>Terisi</option>
+                    <option value="Perbaikan" {{ old('status') == 'Perbaikan' ? 'selected' : '' }}>Perbaikan</option>
                 </select>
             </div>
         </div>
